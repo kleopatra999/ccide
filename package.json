@@ -1,0 +1,33 @@
+{
+  "name": "ccide",
+  "version": "0.0.1a",
+  "description": "",
+  "author": "Johannes Brosi <me@brosi.me>",
+  "contributors": [
+    {
+      "name": "Emin Khateeb",
+      "email": "mail@emin.ch"
+    }],
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbrosi/ccide"
+  },
+  "bugs": {
+    "url": "https://github.com/jbrosi/ccide/issues"
+  },
+  "keywords": [
+    "cloud",
+    "ide",
+    "collaborative"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "preferGlobal": true,
+  "private": true,
+  "analyze": true
+}
