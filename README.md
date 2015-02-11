@@ -1,0 +1,2 @@
+# ccide
+Collaborative Cloud IDE
