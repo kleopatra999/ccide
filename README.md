@@ -17,7 +17,6 @@ Well it's as easy as that:
 $ git clone https://github.com/jbrosi/ccide
 $ cd ccide
 $ npm install
-$ grunt install
 $ grunt
 $ npm start
 ```
