@@ -3,15 +3,24 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-import');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
             build: ["./build"],
-            dist: ["./dist"]
+            dist: ["./dist"],
+            options: {
+                interrupt: true
+            }
         },
-
+        watch: {
+            typeScripts: {
+                files: 'src/**/*.ts',
+                tasks: ['default']
+            }
+        },
         ts: {
             buildClient: {
                 src: ["./src/Client/*.ts", "./src/Client/**/*.ts", "./src/Common/**/*.ts", "./src/lib.d/**/*.ts"],
@@ -100,6 +109,6 @@ module.exports = function(grunt) {
 
 
     grunt.registerTask('default', ['clean:build', 'ts:buildClient', 'ts:buildServer', 'copy:buildServer', 'copy:buildClient', 'import:buildClient', 'import:buildServer', 'copy:publicFiles']);
-    grunt.registerTask('watch', ['clean:build', 'copy:build', 'ts:watch']);
+    grunt.registerTask('dev', ['default','watch:typeScripts']);
 
 };
