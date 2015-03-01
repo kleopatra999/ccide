@@ -33,6 +33,7 @@ For further options see below.
 
 ```
 --port <number>     #changes port number to <number> (default is 80)
+--help              #shows all available help options (will disable all other cli switches when used)
 ```
 
 

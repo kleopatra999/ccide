@@ -17,11 +17,23 @@ module CCIDE.Server.CLI {
         public constructor() {
 
             this._args = optimist.usage("CCIDE - Collaborative Cloud IDE Startup options")
+                .boolean(["h"])
+
                 .alias('p', 'port')
                 .describe('p', 'Defines the http port this instance will listen on (defaults to 80)')
                 .default('p', '80')
+
+                .alias('h', 'help')
+                .describe('h', 'Shows all the options available')
+
                 .argv
             ;
+
+
+            if (this._args.h) {
+                console.log(optimist.showHelp());
+                process.exit(0);
+            }
 
             _.bindAll(this);
         }
