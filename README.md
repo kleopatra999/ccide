@@ -17,11 +17,25 @@ Well it's as easy as that:
 $ git clone https://github.com/jbrosi/ccide
 $ cd ccide
 $ npm install
-$ grunt build
+$ grunt install
+$ grunt
 $ npm start
 ```
 
-The ccide will run at your localhost on port XXXX (not yet defined) and waiting for inputs. For further options see below.
+Or when developing / debugging use nodemon (install with `npm install -g nodemon`):
+```
+nodemon build/ccide_server.js
+```
+
+The ccide will run at your localhost on port 80 (default - change with --port xxx) and waiting for inputs. 
+For further options see below.
+
+### Run Options
+
+```
+--port <number>     #changes port number to <number> (default is 80)
+```
+
 
 ### How may I contribute?
 We'd appreciate to see some contributions! However there's still the "we don't know yet what license to choose" thing (see chapter "So what's the license?"). So if you do want to contribute you have to send us a signed statement containing the fact that you have written the code all by yourself and that you are willing to give all the rights to the code to us.

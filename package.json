@@ -7,9 +7,14 @@
     {
       "name": "Emin Khateeb",
       "email": "mail@emin.ch"
-    }],
+    },
+    {
+      "name": "Johannes Brosi",
+      "email": "me@brosi.me"
+    }
+  ],
   "scripts": {
-    "start": "node index.js"
+    "start": "node build/ccide_server.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +29,18 @@
     "collaborative"
   ],
   "dependencies": {
+    "serve-static": "*",
+    "connect": "*",
+    "optimist": "*",
+    "prompt": "*"
   },
   "devDependencies": {
+    "nodemon": "*",
+    "grunt": "*",
+    "grunt-ts": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-import": "*"
   },
   "preferGlobal": true,
   "private": true,
