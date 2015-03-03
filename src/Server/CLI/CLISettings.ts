@@ -7,6 +7,7 @@ module CCIDE.Server.CLI {
     var optimist = require("optimist");
     var prompt = require("prompt");
     var _ : any = require('lodash-node');
+    var path = require('path');
 
     export class CLISettings {
         private static _instance: CLISettings = null;
@@ -23,6 +24,11 @@ module CCIDE.Server.CLI {
                 .describe('p', 'Defines the http port this instance will listen on (defaults to 80)')
                 .default('p', '80')
 
+                .alias('w', 'workspace')
+                .describe('p', 'Sets the workspace to the given directory (relative or absolute path). If not set the current directory is used.')
+                .default('p', false)
+
+
                 .alias('h', 'help')
                 .describe('h', 'Shows all the options available')
 
@@ -36,6 +42,13 @@ module CCIDE.Server.CLI {
             }
 
             _.bindAll(this);
+        }
+
+        public getWorkspaceDirectory() {
+            if (this._args.w === false) {
+                return process.cwd();
+            }
+            return path.resolve(this._args.w);
         }
 
         public getPort() {
