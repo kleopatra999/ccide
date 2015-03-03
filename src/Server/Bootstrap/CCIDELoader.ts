@@ -39,6 +39,8 @@ module CCIDE.Server.Bootstrap {
             //TODO: autoregister services and don't hardcode them
 
             var fts = new CCIDE.Server.Services.FileService.FileTreeService(app);
+            var fs = new CCIDE.Server.Services.FileService.FileService(app);
+
 
         }
 
