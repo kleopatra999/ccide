@@ -5,16 +5,15 @@ module CCIDE {
 
 
     var connect = require('connect');
-    var serveStatic : any = require('serve-static');
-    var path = require('path');
+
 
 
     var loader = CCIDE.Server.Bootstrap.CCIDELoader.getInstance();
 
-    //serve static files:
-    connect().use(serveStatic(path.resolve(__dirname + "/public"))).listen(loader.getCLISettings().getPort());
+    var app = connect();
 
-    console.log("listening on " + loader.getCLISettings().getPort());
+    loader.initialize(app);
+
 
     //initialize server stuff:
     //...

@@ -6,8 +6,7 @@
 module CCIDE.Server.Bootstrap {
     var _ : any = require('lodash-node');
     var path = require('path');
-
-
+    var serveStatic : any = require('serve-static');
 
     export class CCIDELoader {
 
@@ -22,6 +21,26 @@ module CCIDE.Server.Bootstrap {
             _.bindAll(this);
         }
 
+
+        public initialize(app) {
+
+            app.use(serveStatic(path.resolve(__dirname + "/public")));
+
+            this._registerServices(app);
+
+            app.listen(this.getCLISettings().getPort());
+
+            console.log("listening on " + this.getCLISettings().getPort());
+
+        }
+
+        private _registerServices(app) {
+
+            //TODO: autoregister services and don't hardcode them
+
+            var fts = new CCIDE.Server.Services.FileService.FileTreeService(app);
+
+        }
 
         public getCLISettings() : CCIDE.Server.CLI.CLISettings {
             return this._cliSettings;
