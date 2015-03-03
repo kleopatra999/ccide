@@ -32,7 +32,8 @@
     "serve-static": "*",
     "connect": "*",
     "optimist": "*",
-    "prompt": "*"
+    "prompt": "*",
+    "q": "*"
   },
   "devDependencies": {
     "nodemon": "*",
