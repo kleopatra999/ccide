@@ -9,8 +9,10 @@ module CCIDE {
     var path = require('path');
 
 
+    var loader = CCIDE.Server.Bootstrap.CCIDELoader.getInstance();
+
     //serve static files:
-    connect().use(serveStatic(path.resolve(__dirname + "/public"))).listen(CCIDE.Server.CLI.CLISettings.getInstance().getPort());
+    connect().use(serveStatic(path.resolve(__dirname + "/public"))).listen(loader.getCLISettings().getPort());
 
 
     //initialize server stuff:

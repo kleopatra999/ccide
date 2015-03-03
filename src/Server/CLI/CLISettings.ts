@@ -10,8 +10,6 @@ module CCIDE.Server.CLI {
     var path = require('path');
 
     export class CLISettings {
-        private static _instance: CLISettings = null;
-
 
         private _args: any;
 
@@ -35,7 +33,6 @@ module CCIDE.Server.CLI {
                 .argv
             ;
 
-
             if (this._args.h) {
                 console.log(optimist.showHelp());
                 process.exit(0);
@@ -53,13 +50,6 @@ module CCIDE.Server.CLI {
 
         public getPort() {
             return this._args.p;
-        }
-
-        public static getInstance() : CLISettings{
-            if (CLISettings._instance === null) {
-                CLISettings._instance = new CLISettings();
-            }
-            return CLISettings._instance;
         }
 
     }
