@@ -39,12 +39,11 @@ module CCIDE.Server.Services.FileService {
                             return;
                         }
                         answer[i] = {
-                            stat: stat,
+                            stats: stat,
                             file: stat.isFile(),
-                            link: stat.isSymbolicLink(),
                             directory: stat.isDirectory()
                         };
-                        if (stat.isDirectory()) {
+                        if (stat.isDirectory() && i !== ".git" && i !== "node_modules" && i !== ".tscache" && i !== ".idea") {
                             that._getRecursive(dirPath + "/" + i).then(function(subFiles) {
                                 answer[i].subFiles = subFiles;
                                 fileDeferred.resolve(stat);
