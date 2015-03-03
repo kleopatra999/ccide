@@ -14,6 +14,7 @@ module CCIDE {
     //serve static files:
     connect().use(serveStatic(path.resolve(__dirname + "/public"))).listen(loader.getCLISettings().getPort());
 
+    console.log("listening on " + loader.getCLISettings().getPort());
 
     //initialize server stuff:
     //...

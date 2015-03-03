@@ -23,8 +23,8 @@ module CCIDE.Server.CLI {
                 .default('p', '80')
 
                 .alias('w', 'workspace')
-                .describe('p', 'Sets the workspace to the given directory (relative or absolute path). If not set the current directory is used.')
-                .default('p', false)
+                .describe('w', 'Sets the workspace to the given directory (relative or absolute path). If not set the current directory is used.')
+                .default('w', false)
 
 
                 .alias('h', 'help')
