@@ -33,7 +33,8 @@
     "connect": "*",
     "optimist": "*",
     "prompt": "*",
-    "q": "*"
+    "q": "*",
+    "body-parser": "*"
   },
   "devDependencies": {
     "nodemon": "*",

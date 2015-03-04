@@ -30,6 +30,17 @@ module CCIDE.Client {
 
     var saveFunction = function () {
         console.error(cmInstance.getValue());
+
+        var data = {
+            path: cmInstance.path,
+            content: cmInstance.getValue()
+        };
+
+        $.ajax({
+            url: "/api/fileservice/save/" + base64UrlEncode(cmInstance.path),
+            type: "POST",
+            data: data
+        })
     };
 
     window.document.addEventListener("keydown", function(e) {
@@ -40,6 +51,8 @@ module CCIDE.Client {
     }, false);
 
     $(".filetree").on("click", ".edit", function () {
+
+        var that = this;
 
         $.ajax({
             url: "/api/fileservice/file/" + base64UrlEncode($(this).data("path")),
@@ -58,7 +71,8 @@ module CCIDE.Client {
                     mode: "text/typescript",
                     saveFunction: saveFunction
                 });
-
+                cmInstance.path = $(that).data("path");
+                console.log(cmInstance);
                 cmInstance.setOption("theme", "mbo");
 
 
