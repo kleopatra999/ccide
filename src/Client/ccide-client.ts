@@ -4,6 +4,9 @@ module CCIDE.Client {
     console.log("CCIDE Client ready");
 
 
+
+    var cmInstance : any = null;
+
     var base64UrlEncode = function (text) {
         return window.btoa(text).replace(/\+/ig, "_").replace(/\//ig, "-").replace(/=/ig, "");
     };
@@ -25,6 +28,17 @@ module CCIDE.Client {
         return answer;
     };
 
+    var saveFunction = function () {
+        console.error(cmInstance.getValue());
+    };
+
+    window.document.addEventListener("keydown", function(e) {
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey))      {
+            e.preventDefault();
+            saveFunction();
+        }
+    }, false);
+
     $(".filetree").on("click", ".edit", function () {
 
         $.ajax({
@@ -38,11 +52,16 @@ module CCIDE.Client {
 
                 container.append(editor);
 
-                CodeMirror.fromTextArea(<HTMLTextAreaElement>editor.get(0), {
+                cmInstance = CodeMirror.fromTextArea(<HTMLTextAreaElement>editor.get(0), {
                     lineNumbers: true,
                     matchBrackets: true,
-                    mode: "text/typescript"
+                    mode: "text/typescript",
+                    saveFunction: saveFunction
                 });
+
+                cmInstance.setOption("theme", "mbo");
+
+
             }
         });
 
