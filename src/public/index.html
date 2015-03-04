@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <title>CCIDE - Collaborative Cloud IDE</title>
 
+    <link rel="stylesheet" type="text/css" href="lib/codemirror/codemirror.css">
 
     <style>
 
         .filetree {
-            width: 45%;
+            width: 50%;
             position: absolute;
             left:0;
             height: 80%;
             overflow-y:scroll;
         }
-        .editor {
-            width: 45%;
+        .editor, .CodeMirror {
+            width: 50%;
             position:absolute;
             right: 0;
             height: 80%;
@@ -28,10 +29,14 @@
 <body>
 <h1>CCIDE - Collaborative Cloud IDE</h1>
 <div class="filetree"></div>
-<textarea class="editor"></textarea>
+<div class="editor-container">
+
+</div>
+
 </body>
 
-
+<script src="lib/codemirror/codemirror.js"></script>
+<script src="lib/codemirror/mode/javascript.js"></script>
 <script src="lib/lodash.min.js"></script>
 <script src="lib/zepto.min.js"></script>
 <script src="ccide_client.js"></script>

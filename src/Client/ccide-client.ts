@@ -30,7 +30,19 @@ module CCIDE.Client {
         $.ajax({
             url: "/api/fileservice/file/" + base64UrlEncode($(this).data("path")),
             success: function(data) {
-                $(".editor").val(data);
+                var container = $(".editor-container");
+                container.empty();
+
+                var editor = $("<textarea></textarea>");
+                editor.val(data);
+
+                container.append(editor);
+
+                CodeMirror.fromTextArea(<HTMLTextAreaElement>editor.get(0), {
+                    lineNumbers: true,
+                    matchBrackets: true,
+                    mode: "text/typescript"
+                });
             }
         });
 
