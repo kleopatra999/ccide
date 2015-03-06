@@ -119,9 +119,9 @@ module CCIDE.Client {
                         } else {
                             //try displaying as text
                             editFile(node.data("path"));
-                            event.stopPropagation();
-                        }
 
+                        }
+                        event.stopPropagation();
                     }
 
                 });
