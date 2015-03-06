@@ -4,40 +4,162 @@
     <meta charset="UTF-8">
     <title>CCIDE - Collaborative Cloud IDE</title>
 
+    <link rel="stylesheet" href="lib/jstree/themes/default/style.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
+
+
     <link rel="stylesheet" type="text/css" href="lib/codemirror/codemirror.css">
     <link rel="stylesheet" type="text/css" href="lib/codemirror/theme/mbo.css">
 
     <style>
-
-        .filetree {
-            width: 50%;
-            position: absolute;
-            left:0;
-            height: 80%;
-            overflow-y:scroll;
+        body {
+            overflow: hidden;
         }
-        .editor, .CodeMirror {
-            width: 50%;
+        .filetree-container {
+            width: 28%;
+            position: absolute;
+            left:1%;
+            height: calc(100% - 70px);
+            overflow-y:hidden;
+        }
+        .filetree-container .panel {
+            position: relative;
+            height: 100%;
+
+        }
+        .filetree-container .panel-body {
+            height: calc(100% - 50px);
+            overflow-y: scroll;
+        }
+        .editor-container {
+            width: 69%;
             position:absolute;
+            height: calc(100% - 70px);
+
             right: 0;
-            height: 80%;
-            overflow-y:scroll;
+            overflow-y:hidden;
+        }
+        .editor {
+            background: none transparent;
+            box-sizing:border-box;
+            height: calc(100% - 42px);
+            width: 100%;
+            position: relative;
+            border-top: 0;
+            border-top-left-radius: 0;
+        }
+        .CodeMirror {
+            width: 100%;
+            height: 100%;
+        }
+        .jstree-icon {
+            color: #888;
         }
 
     </style>
 
 </head>
 <body>
-<h1>CCIDE - Collaborative Cloud IDE</h1>
-<div class="filetree"></div>
-<div class="editor-container">
 
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">CCIDE</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Files<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Edit</a></li>
+                        <li><a href="#">Rename</a></li>
+                        <li><a href="#">Delete</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Edit<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Search</a></li>
+                        <li><a href="#">Replace</a></li>
+                        <li><a href="#">...</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Code<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Refactor</a></li>
+                        <li><a href="#">Indent</a></li>
+                        <li><a href="#">Comment</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Compile & Run<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Run</a></li>
+                        <li><a href="#">Compile</a></li>
+                        <li><a href="#">Debug</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </form>
+                <li><a href="#">About</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Getting Started</a></li>
+                        <li><a href="#">License</a></li>
+                        <li><a href="#">Development</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="filetree-container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Project Files</h3>
+        </div>
+        <div class="panel-body">
+            <div class="filetree"></div>
+        </div>
+    </div>
 </div>
+
+<div class="editor-container">
+    <ul class="nav nav-tabs">
+
+    </ul>
+    <div class="editor panel panel-default">
+
+    </div>
+</div>
+<script src="lib/jquery-2.1.3.min.js"></script>
 <script src="lib/codemirror/codemirror.js"></script>
 <script src="lib/codemirror/mode/javascript.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
 <script src="lib/lodash.min.js"></script>
-<script src="lib/zepto.min.js"></script>
 <script src="ccide_client.js"></script>
 
+<script src="lib/jstree/jstree.min.js"></script>
 </body>
 </html>

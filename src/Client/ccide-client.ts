@@ -14,10 +14,10 @@ module CCIDE.Client {
     var buildTree = function(treeData, path) {
         var answer = "<ul>";
         _.forEach(treeData, function(elem: any, key) {
-            answer +='<li>';
+            answer +='<li data-path="' + path + '/' + key + '" class="' + (elem.file ? "file" : "directory") + '">';
             answer += key;
             if (elem.file) {
-                answer += " (" + Math.round(elem.stats.size / 10.24) / 100 + " KB, <span class=\"edit\" data-path=\""+path + "/" + key + "\">edit</span>)";
+                answer += " (" + Math.round(elem.stats.size / 10.24) / 100 + " KB)";
             }
             if(elem.directory && elem.subFiles) {
                 answer += buildTree(elem.subFiles, path + "/" + key);
@@ -50,14 +50,22 @@ module CCIDE.Client {
         }
     }, false);
 
-    $(".filetree").on("click", ".edit", function () {
+    var showImage = function (fileName) {
+        var url = "/api/fileservice/file/" + base64UrlEncode(fileName);
+            $(".editor").html('<img src="' + url + '" >');
 
-        var that = this;
+        $(".editor-container .nav .active").removeClass("active");
+        $(".editor-container .nav").append(
+            $('<li role="presentation" class="active"><a href="#">'+fileName+'</a></li>')
+        );
+    };
+
+    var editFile = function(fileName) {
 
         $.ajax({
-            url: "/api/fileservice/file/" + base64UrlEncode($(this).data("path")),
+            url: "/api/fileservice/file/" + base64UrlEncode(fileName),
             success: function(data) {
-                var container = $(".editor-container");
+                var container = $(".editor");
                 container.empty();
 
                 var editor = $("<textarea></textarea>");
@@ -71,23 +79,52 @@ module CCIDE.Client {
                     mode: "text/typescript",
                     saveFunction: saveFunction
                 });
-                cmInstance.path = $(that).data("path");
-                console.log(cmInstance);
-                cmInstance.setOption("theme", "mbo");
+                cmInstance.path = fileName;
+                cmInstance.setOption("theme", "default");   //mbo is very cool
 
 
+                $(".editor-container .nav .active").removeClass("active");
+                $(".editor-container .nav").append(
+                    $('<li role="presentation" class="active"><a href="#">'+fileName+'</a></li>')
+                );
             }
         });
+    };
 
-        return true;
-    });
 
     $.ajax({
         url: "/api/fileservice/filetree",
         dataType: "json",
         success: function (data) {
-            var code = buildTree(data, "");
-            $(".filetree").html(code);
+            $(".filetree")
+                .jstree({
+
+                    "core": {
+                        "data": data,
+                        "themes": {
+                            "name": "default",
+                            "dots": false,
+                            "icons": true
+                        }
+                    },
+                    "plugins" : [ "wholerow", "dnd", "contextmenu" ]
+
+                }).on("dblclick.jstree", "li", function (event) {
+                    var node = $(event.target).closest("li");
+                    if (node.data("file")) {
+
+                        if (/.*\.(png|jpg|jpeg|gif|svg)$/ig.test(node.data("path"))) {
+                            //try displaying as img
+                            showImage(node.data("path"));
+                        } else {
+                            //try displaying as text
+                            editFile(node.data("path"));
+                            event.stopPropagation();
+                        }
+
+                    }
+
+                });
         }
     });
 

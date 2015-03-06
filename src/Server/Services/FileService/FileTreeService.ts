@@ -20,32 +20,43 @@ module CCIDE.Server.Services.FileService {
 
         private _getRecursive(dirPath) : Q.Promise<any> {
 
+            var basePath = CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings().getWorkspaceDirectory();
+
+
             var that = this;
             var deferred = Q.defer();
             var promises = [];
 
 
-            fs.readdir(dirPath, function (error, files:any) {
+            fs.readdir(basePath + dirPath, function (error, files:any) {
 
 
-                var answer = {};
+                var answer = [];
 
                 _.forEach(files, function (i, key) {
                     var fileDeferred = Q.defer();
-                    fs.lstat(path.resolve(dirPath + "/" + i), function (err, stat) {
+                    fs.lstat(path.resolve(basePath + dirPath + "/" + i), function (err, stat) {
                         if (err) {
                             console.error(err);
                             fileDeferred.resolve(true);
                             return;
                         }
-                        answer[i] = {
-                            stats: stat,
-                            file: stat.isFile(),
-                            directory: stat.isDirectory()
+
+                        var isImage = stat.isFile() && /(.*)\.(png|jpg|jpeg|gif|svg)/ig.test(i);
+
+                        var current = {
+                            text: i,
+                            children: [],
+                            icon: stat.isFile() ? "glyphicon glyphicon-file" : "glyphicon glyphicon-folder-open",
+                            li_attr: {"data-path": dirPath + "/" + i, "data-file": stat.isFile(), "data-directory": stat.isDirectory(), "data-size": stat.size }
                         };
+                        if (isImage) {
+                            current.icon = "glyphicon glyphicon-picture";
+                        }
+                        answer.push(current);
                         if (stat.isDirectory() && i !== ".git" && i !== "node_modules" && i !== ".tscache" && i !== ".idea") {
                             that._getRecursive(dirPath + "/" + i).then(function(subFiles) {
-                                answer[i].subFiles = subFiles;
+                                current.children = subFiles;
                                 fileDeferred.resolve(stat);
                             });
                         } else {
@@ -66,9 +77,8 @@ module CCIDE.Server.Services.FileService {
         }
 
         public onRequest (req, res, next){
-            var dirPath = CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings().getWorkspaceDirectory();
 
-            this._getRecursive(dirPath).then(function(answer) {
+            this._getRecursive("").then(function(answer) {
                 var body = JSON.stringify(answer);
 
                 res.writeHead(200, {

@@ -52,17 +52,37 @@ module CCIDE.Server.Services.FileService {
         public onLoadFileRequest (req, res, next){
 
             var filePath = path.resolve(CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings().getWorkspaceDirectory() + this.base64UrlDecode(req.url.substr(1)));
-            console.log(req.url, filePath);
 
-            var stat = fs.statSync(filePath);
+            fs.exists(filePath, function (exists) {
+                if (!exists) {
+                    res.writeHead(404, {
+                        'Content-Type': 'text/html',
+                    });
+                    res.end("File not found");
 
-            res.writeHead(200, {
-                'Content-Type': 'application/binary',
-                'Content-Length': stat.size
+                    return;
+                }
+
+                var stat = fs.stat(filePath, function(err, stat) {
+                    if (err || ! stat.isFile()) {
+                        res.writeHead(404, {
+                            'Content-Type': 'text/html',
+                        });
+                        res.end("Is not a file");
+                        return;
+                    }
+                    res.writeHead(200, {
+                        'Content-Type': 'application/binary',
+                        'Content-Length': stat.size
+                    });
+
+                    var readStream = fs.createReadStream(filePath);
+                    readStream.pipe(res);
+
+                });
+
             });
 
-            var readStream = fs.createReadStream(filePath);
-            readStream.pipe(res);
         }
 
     }
