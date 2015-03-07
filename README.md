@@ -67,7 +67,7 @@ if you drop us a message.
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Johannes Brosi
+Copyright (c) 2015 Johannes Brosi <me@brosi.me>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
