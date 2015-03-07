@@ -111,6 +111,7 @@ module CCIDE.Client {
 
         //show
         $($(event.target).data("editorinstance").getWrapperElement()).show();
+        $(event.target).data("editorinstance").focus();
     });
 
     $.ajax({
