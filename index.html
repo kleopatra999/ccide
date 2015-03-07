@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Ccide by ccide</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Ccide</h1>
+        <h2></h2>
+        <a href="https://github.com/ccide/ccide" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h3>
+<a id="welcome-to-the-collaborative-cloud-ide-ccide" class="anchor" href="#welcome-to-the-collaborative-cloud-ide-ccide" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to the Collaborative Cloud IDE (CCIDE)</h3>
+
+<p>CCIDE aims to bring back the "edit-on-the-fly" times of the dark ages of web development without their creepiness. Instead of doing changes directly on FTP on the live server, you can use CCIDE on the staging/development server for a fast and easy way to do small or medium changes*. Test and deploy online on a nearly productive environment without any need for local VMs, MAMP/XAMPP environments and such.</p>
+
+<p>*<em>for large changes and "real" development a desktop IDE like Webstorm is still recommended</em></p>
+
+<p>Also this platform wants to bring pair programming to a new level by adding collaborative features. Two keyboards, two mouses, two brains on one session? No problem... CCIDE fuels your pair programming.</p>
+
+<p>Waking up in the middle of the night and got an incredible idea on how the code you could not get to run at business hours could get done easily? Login to CCIDE, find the environment and everything just as you left it, add the magic pease of code, hit "commit &amp; deploy" and have a big smile over your face when you go back to your well earned sleep. CCIDE will remember everything everywhere. Code from your Tablet or even your mobile phone without installing, without configurations. Just coding. Whenever you want, wherever you want.</p>
+
+<h3>
+<a id="how-do-i-get-this-running" class="anchor" href="#how-do-i-get-this-running" aria-hidden="true"><span class="octicon octicon-link"></span></a>How do I get this running?</h3>
+
+<p>There's a demo coming soon - but for now you have to build / test it yourself...</p>
+
+<p>Well but it's as easy as dropping a few lines into your console:</p>
+
+<pre><code>$ git clone https://github.com/jbrosi/ccide
+$ cd ccide
+$ npm install
+$ grunt
+$ npm start
+</code></pre>
+
+<p>Or when developing / debugging use nodemon (install with <code>npm install -g nodemon</code>):</p>
+
+<pre><code>nodemon build/ccide_server.js
+</code></pre>
+
+<p>The ccide will run at your localhost on port 80 (default - change with --port xxx) and waiting for inputs. 
+For further options see below.</p>
+
+<h3>
+<a id="run-options" class="anchor" href="#run-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run Options</h3>
+
+<pre><code>--port &lt;number&gt;     #changes port number to &lt;number&gt; (default is 80)
+--workspace &lt;path&gt;  #changes workspace to the given path. Defaults to the current directory.
+--help              #shows all available help options (will disable all other cli switches when used)
+</code></pre>
+
+<h3>
+<a id="is-it-ready-for-production" class="anchor" href="#is-it-ready-for-production" aria-hidden="true"><span class="octicon octicon-link"></span></a>Is it ready for production?</h3>
+
+<p><em>No! Don't try this yet!</em></p>
+
+<p>Unfortunately it is not. We're still pre-pre-alpha - don't expect anything to be stable. There will be a lot of API
+changes and improvements before we can reach an almost stable beta status. Although we're trying to keep the master
+branch on a relatively stable level. If you want to try it out yourself you should go there and take a look.</p>
+
+<h3>
+<a id="how-may-i-contribute" class="anchor" href="#how-may-i-contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>How may I contribute?</h3>
+
+<p>We'd appreciate to see some contributions! However there's still the "we don't know yet what license to choose" thing (see chapter "So what's the license?"). So if you do want to contribute you have to send us a signed statement containing the fact that you have written the code all by yourself and that you are willing to give all the rights to the code to us.</p>
+
+<p>We know that sucks and we're trying to decide very soon what license we want to keep up. As soon as this is decided we can provide a form for you for the signment and also preserve some of your rights (hopefully ;)).</p>
+
+<p>When the license stuff is clear and we got your agreement... Just add a pull request :)! We'll happily merge it, if code is all well done and up to our standards.</p>
+
+<h3>
+<a id="what-if-i-got-some-problems" class="anchor" href="#what-if-i-got-some-problems" aria-hidden="true"><span class="octicon octicon-link"></span></a>What if I got some problems?</h3>
+
+<p>Read the pages and the wiki first! If that's no help try searching the issues for the same problem or directly contact us at <a href="mailto:me@brosi.me">me@brosi.me</a>.</p>
+
+<h3>
+<a id="at-last-whats-the-license" class="anchor" href="#at-last-whats-the-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>At last: What's the license?</h3>
+
+<p>MIT, Baby :)! Do (almost) whatever you want. If you like what we do and you use it on larger projects we'd appreciate
+if you drop us a message.</p>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2015 Johannes Brosi</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/ccide/ccide/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/ccide/ccide/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/ccide/ccide"></a> is maintained by <a href="https://github.com/ccide">ccide</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-60496820-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
