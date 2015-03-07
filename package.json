@@ -33,6 +33,7 @@
     "connect": "*",
     "optimist": "*",
     "prompt": "*",
+    "lodash-node": "*",
     "q": "*",
     "body-parser": "*"
   },
