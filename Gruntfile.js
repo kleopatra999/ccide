@@ -9,8 +9,9 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            build: ["./build"],
-            dist: ["./dist"],
+            build: {
+                src: ["./build/*", "./build/.*", "!./build/public", "./build/public/*", "!./build/public/bower_components"]
+            } ,
             options: {
                 interrupt: true
             }
