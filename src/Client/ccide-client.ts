@@ -66,7 +66,11 @@ module CCIDE.Client {
             url: "/api/fileservice/file/" + base64UrlEncode(fileName),
             success: function(data) {
                 var container = $(".editor");
-                container.empty();
+
+
+                container.find(".CodeMirror").hide();
+
+
 
                 var editor = $("<textarea></textarea>");
                 editor.val(data);
@@ -84,13 +88,30 @@ module CCIDE.Client {
 
 
                 $(".editor-container .nav .active").removeClass("active");
+                var navElem = $('<li role="presentation" class="active"></li>');
+                var fileLink = $('<a class="file-link" href="#'+encodeURIComponent(fileName)+'">'+fileName+'</a>');
+
+                fileLink.data("editorinstance", cmInstance);
+
+                navElem.append(fileLink);
                 $(".editor-container .nav").append(
-                    $('<li role="presentation" class="active"><a href="#">'+fileName+'</a></li>')
+                    navElem
                 );
             }
         });
     };
 
+    $(".editor-container").on("click", ".nav:not(.active) .file-link", function (event) {
+
+        $(".editor-container .nav li").removeClass("active");
+        $(event.target).parent().addClass("active");
+
+        //hide others:
+        $(".editor .CodeMirror").hide();
+
+        //show
+        $($(event.target).data("editorinstance").getWrapperElement()).show();
+    });
 
     $.ajax({
         url: "/api/fileservice/filetree",
