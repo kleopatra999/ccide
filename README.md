@@ -19,6 +19,7 @@ Well but it's as easy as dropping a few lines into your console:
 $ git clone https://github.com/jbrosi/ccide
 $ cd ccide
 $ npm install
+$ bower install
 $ grunt
 $ npm start
 ```
