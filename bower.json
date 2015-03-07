@@ -1,0 +1,17 @@
+{
+  "name": "ccide",
+  "version": "0.0.1",
+  "dependencies": {
+    "modernizr": "*",
+    "jquery": "*",
+    "handlebars": "*",
+    "moment": "*",
+    "lodash": "*",
+    "q": "*",
+    "jsnlog": "*",
+    "jstree": "*",
+    "bootstrap": "*",
+    "codemirror": "*"
+  },
+  "public": true
+}
