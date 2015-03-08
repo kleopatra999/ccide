@@ -49,11 +49,7 @@ module CCIDE.Client {
         var alreadyopenend = $(".editor-container .nav").find("li.nav-path-" + base64UrlEncode(filePath));
 
         if (alreadyopenend.length > 0) {
-            $(".editor-container .nav li").removeClass("active");
-            alreadyopenend.eq(0).addClass("active");
-            var editor = alreadyopenend.find(".file-link").eq(0).data("editor-instance");
-            $(editor.getWrapperElement()).show();
-            lastTabsActive.push(editor);
+            alreadyopenend.eq(0).find(".file-link").click();
             return;
         }
 
