@@ -45,12 +45,24 @@ module CCIDE.Server.Services.FileService {
 
         public onSaveFileRequest (req, res, next){
 
-            var workingDirectory = CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings().getWorkspaceDirectory();
+            var settings = CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings();
+
+            if (! settings.isReadOnlyModeEnabled()) {
+                if (! this.isPathInWorkingDirectory(filePath)) {
+                    res.writeHead(403, {
+                        'Content-Type': 'text/html'
+                    });
+                    res.end("Read only mode enabled, writes are forbidden!");
+                    return;
+                }
+            }
+
+            var workingDirectory = settings.getWorkspaceDirectory();
             var filePath = path.resolve(workingDirectory + req.body.path);
 
             if (! this.isPathInWorkingDirectory(filePath)) {
                 res.writeHead(500, {
-                    'Content-Type': 'text/html',
+                    'Content-Type': 'text/html'
                 });
                 res.end("Invalid path");
                 return;

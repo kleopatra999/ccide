@@ -26,6 +26,10 @@ module CCIDE.Server.CLI {
                 .describe('w', 'Sets the workspace to the given directory (relative or absolute path). If not set the current directory is used.')
                 .default('w', false)
 
+                .alias('r', 'readonly')
+                .describe('r', 'Activates *read only* mode (for demo purposes). All writing on the server will be disabled.')
+                .default('r', false)
+
 
                 .alias('h', 'help')
                 .describe('h', 'Shows all the options available')
@@ -39,6 +43,10 @@ module CCIDE.Server.CLI {
             }
 
             _.bindAll(this);
+        }
+
+        public isReadOnlyModeEnabled() {
+            return this._args.r;
         }
 
         public getWorkspaceDirectory() {
