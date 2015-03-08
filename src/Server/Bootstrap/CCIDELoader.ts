@@ -7,12 +7,20 @@ module CCIDE.Server.Bootstrap {
     var _ : any = require('lodash-node');
     var path = require('path');
     var serveStatic : any = require('serve-static');
+    var io : any = require('socket.io');
+
 
     export class CCIDELoader {
 
         private static _instance : CCIDELoader = null;
 
         private _cliSettings: CCIDE.Server.CLI.CLISettings = null;
+
+        private _server;
+
+        private _app;
+
+        private _socketService;
 
         public constructor() {
 
@@ -26,9 +34,12 @@ module CCIDE.Server.Bootstrap {
 
             app.use(serveStatic(path.resolve(__dirname + "/public")));
 
-            this._registerServices(app);
+            this._app = app;
+            this._registerServices();
 
-            app.listen(this.getCLISettings().getPort());
+            this._server = app.listen(this.getCLISettings().getPort());
+
+            this._socketService = new CCIDE.Server.Services.WebsocketService.WebsocketService(this._server);
 
             console.log("listening on " + this.getCLISettings().getPort());
 
@@ -37,12 +48,13 @@ module CCIDE.Server.Bootstrap {
             }
         }
 
-        private _registerServices(app) {
+        private _registerServices() {
 
             //TODO: autoregister services and don't hardcode them
 
-            var fts = new CCIDE.Server.Services.FileService.FileTreeService(app);
-            var fs = new CCIDE.Server.Services.FileService.FileService(app);
+            var fts = new CCIDE.Server.Services.FileService.FileTreeService(this._app);
+            var fs = new CCIDE.Server.Services.FileService.FileService(this._app);
+            var fes = new CCIDE.Server.Services.FileService.FileEditService(this._app);
 
 
         }

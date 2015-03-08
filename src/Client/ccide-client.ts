@@ -11,6 +11,12 @@ module CCIDE.Client {
         return window.btoa(text).replace(/\+/ig, "_").replace(/\//ig, "-").replace(/=/ig, "");
     };
 
+    var socket = io(window.location.protocol + "//" + window.location.host);
+    socket.on('news', function (data) {
+        console.log(data);
+        socket.emit('my other event', { my: 'data' });
+    });
+
     var escapeHtml = function (text) {
         var map = {
             '&': '&amp;',

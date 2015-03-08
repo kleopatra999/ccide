@@ -11,7 +11,8 @@
     "jsnlog": "*",
     "jstree": "*",
     "bootstrap": "*",
-    "codemirror": "*"
+    "codemirror": "*",
+    "socket.io-client": "*"
   },
   "public": true
 }
