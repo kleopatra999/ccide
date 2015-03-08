@@ -13,8 +13,20 @@ module CCIDE.Client {
 
     var socket = io(window.location.protocol + "//" + window.location.host);
     socket.on('news', function (data) {
-        console.log(data);
         socket.emit('my other event', { my: 'data' });
+    });
+
+    socket.on('chat', function (data) {
+        var from = data.from;
+        var msg = data.message;
+        var messageElem = $('<div class="message"></div>');
+
+        messageElem.append($('<span class="chat-name"></span>').text(from), ": ", $('<span class="chat-text"></span>').text(msg));
+        messageElem.hide();
+        $(".chat-content").append(messageElem);
+        messageElem.fadeIn();
+
+        $(".chat-content").animate({scrollTop: $(".chat-content")[0].scrollHeight - $(".chat-content").height()}, "fast");
     });
 
     var escapeHtml = function (text) {
@@ -182,7 +194,22 @@ module CCIDE.Client {
 
     });
 
-        $.ajax({
+    var sendChat = function () {
+        var msg = $(".chat-form input").val();
+        $(".chat-form input").val("");
+
+        socket.emit("chat", {message: msg});
+    };
+
+    $(".chat-form input").keypress(function(e) {
+        if (e.which === 13) {
+            sendChat();
+        }
+    });
+    $(".chat-form button").click(sendChat);
+
+
+    $.ajax({
         url: "/api/fileservice/filetree",
         dataType: "json",
         success: function (data) {

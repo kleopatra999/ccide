@@ -17,18 +17,32 @@ module CCIDE.Server.Services.WebsocketService {
 
         private _websocketService;
 
+        private _name;
+
         public constructor(socket, websocketService) {
             _.bindAll(this);
 
             this._socket = socket;
             this._websocketService = websocketService;
+            this._name = this._generateName();
 
             socket.on('message', this._onMessage);
+            socket.on('chat', this._onChat);
             socket.on('disconnect', this._onDisconnect);
 
-            socket.on('my other event', this._onMessage);
-            this.sendMessage("news", "This is a simple test message");
+            this._websocketService.chat(this, "enters the room...");
+        }
 
+        public getName() {
+            return this._name;
+        }
+
+        public _generateName() {
+
+            var foreNames = ["Heroic", "Lazy", "Vicious", "Noble", "Greathearted", "Lovely", "Lonely", "Abandoned", "Fabulous", "Naive", "Sad", "Ugly"];
+            var lastNames = ["Aardvark","Albatross","Alligator","Alpaca","Ant","Anteater","Antelope","Ape","Armadillo","Donkey","Baboon","Badger","Barracuda","Bat","Bear","Beaver","Bee","Bison","Boar","Buffalo, African","Butterfly","Camel","Capybara","Caribou","Cassowary","Cat","Caterpillar","Cattle","Chamois","Cheetah","Chicken","Chimpanzee","Chinchilla","Chough","Clam","Cobra","Cockroach","Cod","Cormorant","Coyote","Crab","Crane","Crocodile","Crow","Curlew","Deer","Dinosaur","Dog","Dogfish","Dolphin","Donkey","Dotterel","Dove","Dragonfly","Duck","Dugong","Dunlin","Eagle","Echidna","Eel","Eland","Elephant","Elephant seal","Elk","Emu","Falcon","Ferret","Finch","Fish","Flamingo","Fly","Fox","Frog","Gaur","Gazelle","Gerbil","Giant Panda","Giraffe","Gnat","Gnu","Goat","Goose","Goldfinch","Goldfish","Gorilla","Goshawk","Grasshopper","Grouse","Guanaco","Guinea fowl","Guinea pig","Gull","Hamster","Hare","Hawk","Hedgehog","Heron","Herring","Hippopotamus","Hornet","Horse","Human","Hummingbird","Hyena","Ibex","Ibis","Jackal","Jaguar","Jay","Jay, Blue","Jellyfish","Kangaroo","Kingfisher","Koala","Komodo dragon","Kookabura","Kouprey","Kudu","Lapwing","Lark","Lemur","Leopard","Lion","Llama","Lobster","Locust","Loris","Louse","Lyrebird","Magpie","Mallard","Manatee","Mandrill","Mantis","Marten","Meerkat","Mink","Mole","Mongoose","Monkey","Moose","Mouse","Mosquito","Mule","Narwhal","Newt","Nightingale","Octopus","Okapi","Opossum","Oryx","Ostrich","Otter","Owl","Oyster","Panther","Parrot","Panda","Partridge","Peafowl","Pelican","Penguin","Pheasant","Pig","Pigeon","Polar Bear","Pony","See Horse","Porcupine","Porpoise","Prairie Dog","Quail","Quelea","Quetzal","Rabbit","Raccoon","Rail","Ram","Rat","Raven","Red deer","Red panda","Reindeer","Rhinoceros","Rook","Salamander","Salmon","Sand Dollar","Sandpiper","Sardine","Scorpion","Sea lion","Sea Urchin","Seahorse","Seal","Shark","Sheep","Shrew","Skunk","Snail","Snake","Sparrow","Spider","Spoonbill","Squid","Squirrel","Starling","Stingray","Stinkbug","Stork","Swallow","Swan","Tapir","Tarsier","Termite","Tiger","Toad","Trout","Turkey","Turtle","Vicuña","Viper","Vulture","Wallaby","Walrus","Wasp","Water buffalo","Weasel","Whale","Wildcat","Wolf","Wolverine","Wombat","Woodcock","Woodpecker","Worm","Wren","Yak","Zebra"];
+
+            return foreNames[Math.floor(Math.random() * foreNames.length)] + " " + lastNames[Math.floor(Math.random() * lastNames.length)];
         }
 
         public once(identifier, callback) {
@@ -54,6 +68,10 @@ module CCIDE.Server.Services.WebsocketService {
 
         public _onMessage(message) {
             this._websocketService.onMessage(this, message);
+        }
+
+        public _onChat(message) {
+            this._websocketService.onChat(this, {message:message.message, from: this.getName()});
         }
 
         public _onDisconnect() {

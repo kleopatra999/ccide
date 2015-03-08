@@ -26,9 +26,27 @@ module CCIDE.Server.Services.WebsocketService {
 
         }
 
+        public chat(client, message) {
+            this.sendMessage("chat", {from: client.getName(), message: message});
+        }
 
-        public _onConnection(client) {
-            this._connections.push(new WebsocketConnection(client, this));
+
+        public _onConnection(socketConnection) {
+            var client = new WebsocketConnection(socketConnection, this);
+            this._connections.push(client);
+
+            this.chat(client, "Entered the room");
+        }
+
+        public sendMessage(identifier, message) {
+            _.forEach(this._connections, function(elem) {
+                elem.sendMessage(identifier, message);
+            });
+
+        }
+
+        public onChat(client, message) {
+            this.sendMessage("chat", message);
         }
 
         public onMessage(client, message) {
@@ -37,6 +55,8 @@ module CCIDE.Server.Services.WebsocketService {
 
         public onDisconnect(client) {
             console.log("disconnected");
+            this._connections = _.without(this._connections, client);
+            this.chat(client, "Disconnected");
         }
 
 

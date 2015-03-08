@@ -17,10 +17,10 @@
             overflow: hidden;
         }
         .filetree-container {
-            width: 28%;
+            width: 18%;
             position: absolute;
             left:1%;
-            height: calc(100% - 70px);
+            height: calc(100% - 75px);
             overflow-y:hidden;
         }
         .filetree-container .panel {
@@ -32,12 +32,36 @@
             height: calc(100% - 50px);
             overflow-y: scroll;
         }
-        .editor-container {
-            width: 69%;
-            position:absolute;
-            height: calc(100% - 70px);
+        .chat-container {
+            width: 18%;
+            position: absolute;
+            height: calc(100% - 75px);
 
-            right: 0;
+            right: 1%;
+            overflow-y:hidden;
+        }
+        .chat-container .panel-body {
+            position: relative;
+            height: calc(100% - 50px);
+        }
+        .chat-container .chat-content {
+            height: calc(100% - 15px);
+            width: 100%;
+            overflow-y: scroll;
+        }
+        .chat-container .chat-form {
+            padding-top: 5px;
+        }
+        .chat-name {
+            font-style: italic;
+            font-weight: bold;
+        }
+        .editor-container {
+            width: 59%;
+            position:absolute;
+            height: calc(100% - 75px);
+
+            left: 20%;
             overflow-y:hidden;
         }
         .editor {
@@ -164,6 +188,23 @@
 
     </div>
 </div>
+
+<div class="chat-container panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Project Chat</h3>
+    </div>
+    <div class="panel-body">
+        <div class="chat-content"></div>
+        <div class="chat-form input-group-sm input-group">
+            <input type="text" class="form-control" placeholder="Message">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/codemirror/lib/codemirror.js"></script>
 <script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
