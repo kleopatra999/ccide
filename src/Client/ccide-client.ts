@@ -22,6 +22,32 @@ module CCIDE.Client {
         return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     };
 
+    var showFlashMessage = function (message, level) {
+        if (level === undefined) {
+            level = "info";
+        }
+
+
+
+        var msg = $(
+            '<div class="alert alert-'+level+' alert-dismissible" role="alert">'
+            + '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                + '<span aria-hidden="true">&times;</span>'
+            +'</button>'
+            + message
+            + '</div>');
+
+        setTimeout(function() {
+            msg.fadeOut(500, function() {
+                msg.remove();
+            });
+        }, 5000);
+        msg.hide();
+        $(".flash-message-container").prepend(msg);
+        msg.fadeIn();
+
+    };
+
     var saveFunction = function () {
         console.log("trying to save...");
         var data = {
@@ -35,10 +61,10 @@ module CCIDE.Client {
             data: data,
             statusCode: {
                 200: function () {
-                    console.log("Saving of '" + cmInstance.path + "' seemed to be successful!");
+                    showFlashMessage("Saving of '" + cmInstance.path + "' seemed to be successful!", "success");
                 },
                 403: function () {
-                    console.log("Failed to save '" + cmInstance.path + "', read only mode activated?");
+                    showFlashMessage("<strong>Fehler!</strong> Fehlende Berechtigung beim Speichern von '"+cmInstance.path+"'!", "danger");
                 }
             }
         })
