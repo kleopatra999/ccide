@@ -3,7 +3,7 @@
 module CCIDE.Client {
     console.log("CCIDE Client ready");
 
-
+    var lastTabsActive = [];
 
     var cmInstance : any = null;
 
@@ -89,11 +89,16 @@ module CCIDE.Client {
 
                 $(".editor-container .nav .active").removeClass("active");
                 var navElem = $('<li role="presentation" class="active"></li>');
-                var fileLink = $('<a class="file-link" href="#'+encodeURIComponent(fileName)+'">'+fileName+'</a>');
+                var fileLink = $('<a class="file-link" href="#'+encodeURIComponent(fileName)+'">'+fileName+'<span class="close glyphicon glyphicon-remove"></span></span></a>');
 
                 fileLink.data("editorinstance", cmInstance);
 
                 navElem.append(fileLink);
+
+                lastTabsActive.push(cmInstance);
+
+                cmInstance.tabNavigation = navElem;
+
                 $(".editor-container .nav").append(
                     navElem
                 );
@@ -109,12 +114,35 @@ module CCIDE.Client {
         //hide others:
         $(".editor .CodeMirror").hide();
 
+        lastTabsActive.push($(event.target).data("editorinstance"));
+
         //show
         $($(event.target).data("editorinstance").getWrapperElement()).show();
         $(event.target).data("editorinstance").focus();
     });
 
-    $.ajax({
+    $(".editor-container").on("click", ".nav:not(.active) .close", function (event) {
+        event.stopPropagation();
+        var editorInstance : CodeMirror.EditorFromTextArea = $(event.target).parent().data("editorinstance");
+
+        lastTabsActive = _.without(lastTabsActive, editorInstance);
+
+        var textarea = editorInstance.getTextArea();
+        editorInstance.toTextArea();
+        $(textarea).remove();
+
+        $(event.target).parent().parent().remove();
+
+        if (lastTabsActive.length > 0) {
+            var editor = lastTabsActive[lastTabsActive.length - 1];
+            editor.tabNavigation.addClass("active");
+            $(editor.getWrapperElement()).show();
+        }
+
+
+    });
+
+        $.ajax({
         url: "/api/fileservice/filetree",
         dataType: "json",
         success: function (data) {
