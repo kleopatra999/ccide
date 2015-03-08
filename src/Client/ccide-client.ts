@@ -64,7 +64,7 @@ module CCIDE.Client {
                     showFlashMessage("Saving of '" + cmInstance.path + "' seemed to be successful!", "success");
                 },
                 403: function () {
-                    showFlashMessage("<strong>Fehler!</strong> Fehlende Berechtigung beim Speichern von '"+cmInstance.path+"'!", "danger");
+                    showFlashMessage("<strong>Error!</strong> Insufficient permissions for saving '"+cmInstance.path+"'!", "danger");
                 }
             }
         })
