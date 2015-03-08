@@ -11,6 +11,16 @@ module CCIDE.Client {
         return window.btoa(text).replace(/\+/ig, "_").replace(/\//ig, "-").replace(/=/ig, "");
     };
 
+    var escapeHtml = function (text) {
+        var map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    };
 
     var saveFunction = function () {
         console.error(cmInstance.getValue());
@@ -80,7 +90,7 @@ module CCIDE.Client {
 
                 $(".editor-container .nav .active").removeClass("active");
                 var navElem = $('<li role="presentation" class="active nav-path-'+base64UrlEncode(filePath)+'"></li>');
-                var fileLink = $('<a class="file-link" href="#'+encodeURIComponent(fileName)+'" onclick="return false;">'+fileName+'<span class="close glyphicon glyphicon-remove"></span></span></a>');
+                var fileLink = $('<a class="file-link" title="' + escapeHtml(filePath) + '" href="#'+encodeURIComponent(fileName)+'" onclick="return false;">'+fileName+'<span class="close glyphicon glyphicon-remove"></span></span></a>');
 
                 fileLink.data("editorinstance", cmInstance);
 
