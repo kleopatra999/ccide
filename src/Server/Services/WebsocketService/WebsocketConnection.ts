@@ -31,6 +31,22 @@ module CCIDE.Server.Services.WebsocketService {
 
         }
 
+        public once(identifier, callback) {
+            this._socket.once(identifier, callback);
+        }
+
+        public on(identifier, callback) {
+            this._socket.on(identifier, callback);
+        }
+
+        public removeListener(identifier, callback) {
+            this._socket.removeListener(identifier, callback);
+        }
+
+        public removeAllListeners(identifier) {
+            this._socket.removeAllListeners(identifier);
+        }
+
         public sendMessage(identifier, message) {
             console.log("emitting message " + identifier, message);
             this._socket.emit(identifier, message);
