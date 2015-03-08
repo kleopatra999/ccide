@@ -35,10 +35,27 @@ module CCIDE.Server.Services.FileService {
             return new Buffer(text, "base64").toString("ascii");
         }
 
+        public isPathInWorkingDirectory(filePath) {
+            var workingDirectory = CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings().getWorkspaceDirectory();
+            filePath = path.normalize(filePath);
+
+            return filePath.indexOf(workingDirectory) === 0;
+
+        }
+
         public onSaveFileRequest (req, res, next){
 
+            var workingDirectory = CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings().getWorkspaceDirectory();
+            var filePath = path.resolve(workingDirectory + req.body.path);
 
-            var filePath = path.resolve(CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings().getWorkspaceDirectory() + req.body.path);
+            if (! this.isPathInWorkingDirectory(filePath)) {
+                res.writeHead(500, {
+                    'Content-Type': 'text/html',
+                });
+                res.end("Invalid path");
+                return;
+            }
+
             var content = req.body.content;
 
             var stat = fs.statSync(filePath);
@@ -52,6 +69,14 @@ module CCIDE.Server.Services.FileService {
         public onLoadFileRequest (req, res, next){
 
             var filePath = path.resolve(CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings().getWorkspaceDirectory() + this.base64UrlDecode(req.url.substr(1)));
+
+            if (! this.isPathInWorkingDirectory(filePath)) {
+                res.writeHead(500, {
+                    'Content-Type': 'text/html',
+                });
+                res.end("Invalid path");
+                return;
+            }
 
             fs.exists(filePath, function (exists) {
                 if (!exists) {
