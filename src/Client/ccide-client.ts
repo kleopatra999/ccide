@@ -23,8 +23,7 @@ module CCIDE.Client {
     };
 
     var saveFunction = function () {
-        console.error(cmInstance.getValue());
-
+        console.log("trying to save...");
         var data = {
             path: cmInstance.path,
             content: cmInstance.getValue()
@@ -33,7 +32,15 @@ module CCIDE.Client {
         $.ajax({
             url: "/api/fileservice/save/" + base64UrlEncode(cmInstance.path),
             type: "POST",
-            data: data
+            data: data,
+            statusCode: {
+                200: function () {
+                    console.log("Saving of '" + cmInstance.path + "' seemed to be successful!");
+                },
+                403: function () {
+                    console.log("Failed to save '" + cmInstance.path + "', read only mode activated?");
+                }
+            }
         })
     };
 
