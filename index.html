@@ -13,13 +13,13 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Ccide by ccide</title>
+    <title>Collaborative Cloud IDE (CCIDE) by ccide</title>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <h1>Ccide</h1>
+        <h1>Collaborative Cloud IDE (CCIDE)</h1>
         <h2></h2>
         <a href="https://github.com/ccide/ccide" class="button"><small>View project on</small> GitHub</a>
       </div>
@@ -42,13 +42,15 @@
 <h3>
 <a id="how-do-i-get-this-running" class="anchor" href="#how-do-i-get-this-running" aria-hidden="true"><span class="octicon octicon-link"></span></a>How do I get this running?</h3>
 
-<p>There's a demo coming soon - but for now you have to build / test it yourself...</p>
+<p>There's a <a href="http://ccide.jbrosi.ch">demo</a> (readonly) - or you try building / test yourself...</p>
 
-<p>Well but it's as easy as dropping a few lines into your console:</p>
+<p>Building is as easy as dropping a few lines into your console:</p>
 
 <pre><code>$ git clone https://github.com/jbrosi/ccide
 $ cd ccide
+$ git checkout develop
 $ npm install
+$ bower install
 $ grunt
 $ npm start
 </code></pre>
@@ -66,6 +68,7 @@ For further options see below.</p>
 
 <pre><code>--port &lt;number&gt;     #changes port number to &lt;number&gt; (default is 80)
 --workspace &lt;path&gt;  #changes workspace to the given path. Defaults to the current directory.
+--readonly          #enables read only mode (for demo purposes). Disables all write actions on the server (default is false).
 --help              #shows all available help options (will disable all other cli switches when used)
 </code></pre>
 
@@ -100,7 +103,7 @@ if you drop us a message.</p>
 
 <p>The MIT License (MIT)</p>
 
-<p>Copyright (c) 2015 Johannes Brosi</p>
+<p>Copyright (c) 2015 Johannes Brosi <a href="mailto:me@brosi.me">me@brosi.me</a></p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
