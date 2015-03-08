@@ -46,9 +46,10 @@ module CCIDE.Server.Services.FileService {
 
                         var current = {
                             text: i,
+
                             children: [],
                             icon: stat.isFile() ? "glyphicon glyphicon-file" : "glyphicon glyphicon-folder-open",
-                            li_attr: {"data-path": dirPath + "/" + i, "data-file": stat.isFile(), "data-directory": stat.isDirectory(), "data-size": stat.size }
+                            li_attr: {"data-name": i, "data-path": dirPath + "/" + i, "data-file": stat.isFile(), "data-directory": stat.isDirectory(), "data-size": stat.size }
                         };
                         if (isImage) {
                             current.icon = "glyphicon glyphicon-picture";

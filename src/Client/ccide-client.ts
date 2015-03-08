@@ -11,22 +11,6 @@ module CCIDE.Client {
         return window.btoa(text).replace(/\+/ig, "_").replace(/\//ig, "-").replace(/=/ig, "");
     };
 
-    var buildTree = function(treeData, path) {
-        var answer = "<ul>";
-        _.forEach(treeData, function(elem: any, key) {
-            answer +='<li data-path="' + path + '/' + key + '" class="' + (elem.file ? "file" : "directory") + '">';
-            answer += key;
-            if (elem.file) {
-                answer += " (" + Math.round(elem.stats.size / 10.24) / 100 + " KB)";
-            }
-            if(elem.directory && elem.subFiles) {
-                answer += buildTree(elem.subFiles, path + "/" + key);
-            }
-            answer+="</li>";
-        });
-        answer+="</ul>";
-        return answer;
-    };
 
     var saveFunction = function () {
         console.error(cmInstance.getValue());
@@ -60,10 +44,10 @@ module CCIDE.Client {
         );
     };
 
-    var editFile = function(fileName) {
+    var editFile = function(fileName, filePath) {
 
         $.ajax({
-            url: "/api/fileservice/file/" + base64UrlEncode(fileName),
+            url: "/api/fileservice/file/" + base64UrlEncode(filePath),
             success: function(data) {
                 var container = $(".editor");
 
@@ -83,13 +67,13 @@ module CCIDE.Client {
                     mode: "text/typescript",
                     saveFunction: saveFunction
                 });
-                cmInstance.path = fileName;
+                cmInstance.path = filePath;
                 cmInstance.setOption("theme", "default");   //mbo is very cool
 
 
                 $(".editor-container .nav .active").removeClass("active");
                 var navElem = $('<li role="presentation" class="active"></li>');
-                var fileLink = $('<a class="file-link" href="#'+encodeURIComponent(fileName)+'">'+fileName+'<span class="close glyphicon glyphicon-remove"></span></span></a>');
+                var fileLink = $('<a class="file-link" href="#'+encodeURIComponent(fileName)+'" onclick="return false;">'+fileName+'<span class="close glyphicon glyphicon-remove"></span></span></a>');
 
                 fileLink.data("editorinstance", cmInstance);
 
@@ -168,7 +152,7 @@ module CCIDE.Client {
                             showImage(node.data("path"));
                         } else {
                             //try displaying as text
-                            editFile(node.data("path"));
+                            editFile(node.data("name"), node.data("path"));
 
                         }
                         event.stopPropagation();
