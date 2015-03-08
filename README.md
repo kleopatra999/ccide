@@ -37,6 +37,7 @@ For further options see below.
 ```
 --port <number>     #changes port number to <number> (default is 80)
 --workspace <path>  #changes workspace to the given path. Defaults to the current directory.
+--readonly          #enables read only mode (for demo purposes). Disables all write actions on the server (default is false).
 --help              #shows all available help options (will disable all other cli switches when used)
 ```
 
