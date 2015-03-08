@@ -46,6 +46,17 @@ module CCIDE.Client {
 
     var editFile = function(fileName, filePath) {
 
+        var alreadyopenend = $(".editor-container .nav").find("li.nav-path-" + base64UrlEncode(filePath));
+
+        if (alreadyopenend.length > 0) {
+            $(".editor-container .nav li").removeClass("active");
+            alreadyopenend.eq(0).addClass("active");
+            var editor = alreadyopenend.find(".file-link").eq(0).data("editor-instance");
+            $(editor.getWrapperElement()).show();
+            lastTabsActive.push(editor);
+            return;
+        }
+
         $.ajax({
             url: "/api/fileservice/file/" + base64UrlEncode(filePath),
             success: function(data) {
@@ -72,7 +83,7 @@ module CCIDE.Client {
 
 
                 $(".editor-container .nav .active").removeClass("active");
-                var navElem = $('<li role="presentation" class="active"></li>');
+                var navElem = $('<li role="presentation" class="active nav-path-'+base64UrlEncode(filePath)+'"></li>');
                 var fileLink = $('<a class="file-link" href="#'+encodeURIComponent(fileName)+'" onclick="return false;">'+fileName+'<span class="close glyphicon glyphicon-remove"></span></span></a>');
 
                 fileLink.data("editorinstance", cmInstance);
