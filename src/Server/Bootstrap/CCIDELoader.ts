@@ -32,6 +32,9 @@ module CCIDE.Server.Bootstrap {
 
             console.log("listening on " + this.getCLISettings().getPort());
 
+            if (this.getCLISettings().isReadOnlyModeEnabled()) {
+                console.log("Readonly mode enabled");
+            }
         }
 
         private _registerServices(app) {

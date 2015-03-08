@@ -47,14 +47,12 @@ module CCIDE.Server.Services.FileService {
 
             var settings = CCIDE.Server.Bootstrap.CCIDELoader.getInstance().getCLISettings();
 
-            if (! settings.isReadOnlyModeEnabled()) {
-                if (! this.isPathInWorkingDirectory(filePath)) {
-                    res.writeHead(403, {
-                        'Content-Type': 'text/html'
-                    });
-                    res.end("Read only mode enabled, writes are forbidden!");
-                    return;
-                }
+            if (settings.isReadOnlyModeEnabled()) {
+                res.writeHead(403, {
+                    'Content-Type': 'text/html'
+                });
+                res.end("Read only mode enabled, writes are forbidden!");
+                return;
             }
 
             var workingDirectory = settings.getWorkspaceDirectory();
