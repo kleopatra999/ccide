@@ -11,13 +11,14 @@ Waking up in the middle of the night and got an incredible idea on how the code 
 
 ### How do I get this running?
 
-There's a demo coming soon - but for now you have to build / test it yourself...
+There's a [demo](http://ccide.jbrosi.ch) (readonly) - or you try building / test yourself...
 
-Well but it's as easy as dropping a few lines into your console:
+Building is as easy as dropping a few lines into your console:
 
 ```
 $ git clone https://github.com/jbrosi/ccide
 $ cd ccide
+$ git checkout develop
 $ npm install
 $ bower install
 $ grunt
