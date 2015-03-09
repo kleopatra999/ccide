@@ -45,7 +45,21 @@ module CCIDE.Server.Services.WebsocketService {
 
         }
 
+        public getConnectedNames(): string[] {
+            var answer = [];
+
+            _.forEach(this._connections, function(con) {
+                answer.push(con.getName());
+            });
+            return answer;
+        }
+
         public onChat(client, message) {
+            if (message.message.trim().toLocaleLowerCase() === "/list") {
+                //show all connected clients
+                client.sendMessage("chat", {from: "System", message: "Persons in this room: " + this.getConnectedNames().join(", ")});
+                return;
+            }
             this.sendMessage("chat", message);
         }
 
