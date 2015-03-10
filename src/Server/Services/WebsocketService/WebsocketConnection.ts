@@ -30,7 +30,6 @@ module CCIDE.Server.Services.WebsocketService {
             socket.on('chat', this._onChat);
             socket.on('disconnect', this._onDisconnect);
 
-            this._websocketService.chat(this, "enters the room...");
         }
 
         public getName() {

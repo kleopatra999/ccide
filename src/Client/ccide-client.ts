@@ -21,7 +21,13 @@ module CCIDE.Client {
         var msg = data.message;
         var messageElem = $('<div class="message"></div>');
 
-        messageElem.append($('<span class="chat-name"></span>').text(from), ": ", $('<span class="chat-text"></span>').text(msg));
+        if (data.message.indexOf("/e ") === 0) {
+            //emote
+            messageElem.append($('<span class="chat-name"></span>').text(from + " " + msg.substr(3)));
+        } else {
+            messageElem.append($('<span class="chat-name"></span>').text(from), ": ", $('<span class="chat-text"></span>').text(msg));
+        }
+
         messageElem.hide();
         $(".chat-content").append(messageElem);
         messageElem.fadeIn();

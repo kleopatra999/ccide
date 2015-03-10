@@ -35,7 +35,7 @@ module CCIDE.Server.Services.WebsocketService {
             var client = new WebsocketConnection(socketConnection, this);
             this._connections.push(client);
 
-            this.chat(client, "Entered the room");
+            this.chat(client, "/e entered the room.");
         }
 
         public sendMessage(identifier, message) {
@@ -68,9 +68,8 @@ module CCIDE.Server.Services.WebsocketService {
         }
 
         public onDisconnect(client) {
-            console.log("disconnected");
             this._connections = _.without(this._connections, client);
-            this.chat(client, "Disconnected");
+            this.chat(client, "/e disconnected.");
         }
 
 
