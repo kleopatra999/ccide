@@ -8,6 +8,7 @@ module CCIDE.Server.Services.FileService {
     var fs = require('fs');
     var Q = require("q");
     var path = require("path");
+    var zlib = require("zlib");
 
     var bodyParser : any = require("body-parser");
 
@@ -113,7 +114,6 @@ module CCIDE.Server.Services.FileService {
 
                     var readStream = fs.createReadStream(filePath);
                     readStream.pipe(res);
-
                 });
 
             });

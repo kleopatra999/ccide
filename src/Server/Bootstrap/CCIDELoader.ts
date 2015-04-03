@@ -9,6 +9,7 @@ module CCIDE.Server.Bootstrap {
     var serveStatic : any = require('serve-static');
     var io : any = require('socket.io');
 
+    var compression = require("compression");
 
     export class CCIDELoader {
 
@@ -31,6 +32,22 @@ module CCIDE.Server.Bootstrap {
 
 
         public initialize(app) {
+            app.use(compression({filter: shouldCompress}));
+
+            function shouldCompress(req, res) {
+                if (req.headers['x-no-compression']) {
+                    // don't compress responses with this request header
+                    return false
+                }
+                return true;
+
+
+                //TODO: We should exclude some things like already compressed stuff :)
+
+                // fallback to standard filter function
+                //return compression.filter(req, res)
+            }
+
 
             app.use(serveStatic(path.resolve(__dirname + "/public")));
 

@@ -1,53 +1,54 @@
 {
-  "name": "ccide",
-  "version": "0.0.1a",
-  "description": "",
-  "author": "Johannes Brosi <me@brosi.me>",
-  "contributors": [
-    {
-      "name": "Emin Khateeb",
-      "email": "mail@emin.ch"
+    "name": "ccide",
+    "version": "0.0.1a",
+    "description": "",
+    "author": "Johannes Brosi <me@brosi.me>",
+    "contributors": [
+        {
+            "name": "Emin Khateeb",
+            "email": "mail@emin.ch"
+        },
+        {
+            "name": "Johannes Brosi",
+            "email": "me@brosi.me"
+        }
+    ],
+    "scripts": {
+        "start": "node build/ccide_server.js"
     },
-    {
-      "name": "Johannes Brosi",
-      "email": "me@brosi.me"
-    }
-  ],
-  "scripts": {
-    "start": "node build/ccide_server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jbrosi/ccide"
-  },
-  "bugs": {
-    "url": "https://github.com/jbrosi/ccide/issues"
-  },
-  "keywords": [
-    "cloud",
-    "ide",
-    "collaborative"
-  ],
-  "dependencies": {
-    "serve-static": "*",
-    "connect": "*",
-    "optimist": "*",
-    "prompt": "*",
-    "lodash-node": "*",
-    "q": "*",
-    "body-parser": "*",
-    "socket.io": "*"
-  },
-  "devDependencies": {
-    "nodemon": "*",
-    "grunt": "*",
-    "grunt-ts": "*",
-    "grunt-contrib-copy": "*",
-    "grunt-contrib-clean": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-import": "*"
-  },
-  "preferGlobal": true,
-  "private": true,
-  "analyze": true
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jbrosi/ccide"
+    },
+    "bugs": {
+        "url": "https://github.com/jbrosi/ccide/issues"
+    },
+    "keywords": [
+        "cloud",
+        "ide",
+        "collaborative"
+    ],
+    "dependencies": {
+        "serve-static": "*",
+        "connect": "*",
+        "optimist": "*",
+        "prompt": "*",
+        "lodash-node": "*",
+        "q": "*",
+        "body-parser": "*",
+        "socket.io": "*",
+        "compression": "*"
+    },
+    "devDependencies": {
+        "nodemon": "*",
+        "grunt": "*",
+        "grunt-ts": "*",
+        "grunt-contrib-copy": "*",
+        "grunt-contrib-clean": "*",
+        "grunt-contrib-watch": "*",
+        "grunt-import": "*"
+    },
+    "preferGlobal": true,
+    "private": true,
+    "analyze": true
 }
