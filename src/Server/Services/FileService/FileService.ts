@@ -73,6 +73,11 @@ module CCIDE.Server.Services.FileService {
 
             fs.writeFile(filePath, content);
 
+
+            res.writeHead(200, {
+                'Content-Type': 'text/html',
+            });
+            res.end("Success");
         }
 
 
