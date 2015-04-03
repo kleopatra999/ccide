@@ -72,6 +72,7 @@ module CCIDE.Server.Bootstrap {
             var fts = new CCIDE.Server.Services.FileService.FileTreeService(this._app);
             var fs = new CCIDE.Server.Services.FileService.FileService(this._app);
             var fes = new CCIDE.Server.Services.FileService.FileEditService(this._app);
+            var gss = new CCIDE.Server.Services.GitService.GitStatusService(this._app);
 
 
         }

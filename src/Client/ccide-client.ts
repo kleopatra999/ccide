@@ -215,6 +215,35 @@ module CCIDE.Client {
     $(".chat-form button").click(sendChat);
 
 
+
+    function updateGitStatus() {
+
+        $.ajax({
+            url: "/api/gitservice/status",
+            dataType: "json",
+            success: function (data) {
+
+                for (var key in data) {
+                    if (! data.hasOwnProperty(key)) {
+                        continue;
+                    }
+                    var statuses = data[key].split(" ");
+                    var elem = $(".filetree").find('li[data-path="' + key + '"]');
+                    _.each(statuses, function(status) {
+                        elem.addClass("git-status-" + status);
+                    });
+
+
+                }
+
+            }
+        });
+
+    }
+    setTimeout(updateGitStatus, 5000);
+    setInterval(updateGitStatus, 60000);
+
+
     $.ajax({
         url: "/api/fileservice/filetree",
         dataType: "json",

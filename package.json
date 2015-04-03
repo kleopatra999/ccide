@@ -37,7 +37,9 @@
         "q": "*",
         "body-parser": "*",
         "socket.io": "*",
-        "compression": "*"
+        "compression": "*",
+        "shelljs": "*",
+        "nodegit": "*"
     },
     "devDependencies": {
         "nodemon": "*",

@@ -1,4 +1,5 @@
-
+///ts:ref=Q.d.ts
+/// <reference path="../../../lib.d/q/Q.d.ts"/> ///ts:ref:generated
 
 module CCIDE.Server.Services.FileService {
 

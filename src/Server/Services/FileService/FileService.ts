@@ -75,7 +75,7 @@ module CCIDE.Server.Services.FileService {
 
 
             res.writeHead(200, {
-                'Content-Type': 'text/html',
+                'Content-Type': 'text/html'
             });
             res.end("Success");
         }
@@ -88,7 +88,7 @@ module CCIDE.Server.Services.FileService {
 
             if (! this.isPathInWorkingDirectory(filePath)) {
                 res.writeHead(500, {
-                    'Content-Type': 'text/html',
+                    'Content-Type': 'text/html'
                 });
                 res.end("Invalid path");
                 return;
@@ -97,7 +97,7 @@ module CCIDE.Server.Services.FileService {
             fs.exists(filePath, function (exists) {
                 if (!exists) {
                     res.writeHead(404, {
-                        'Content-Type': 'text/html',
+                        'Content-Type': 'text/html'
                     });
                     res.end("File not found");
 
@@ -107,7 +107,7 @@ module CCIDE.Server.Services.FileService {
                 var stat = fs.stat(filePath, function(err, stat) {
                     if (err || ! stat.isFile()) {
                         res.writeHead(404, {
-                            'Content-Type': 'text/html',
+                            'Content-Type': 'text/html'
                         });
                         res.end("Is not a file");
                         return;
