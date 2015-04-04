@@ -216,31 +216,40 @@ module CCIDE.Client {
 
 
 
+    var gitStatusCache = null;
+
+    function refreshGitStatus(target = $(".filetree")) {
+        if (gitStatusCache === null) {
+            return;
+        }
+
+        console.log("refreshing", target);
+
+        for (var key in gitStatusCache) {
+            if (! gitStatusCache.hasOwnProperty(key)) {
+                continue;
+            }
+            var statuses = gitStatusCache[key].split(" ");
+            var elem = target.find('li[data-path="' + key + '"]');
+            _.each(statuses, function(status) {
+                elem.addClass("git-status-" + status);
+            });
+        }
+    }
+
     function updateGitStatus() {
 
         $.ajax({
             url: "/api/gitservice/status",
             dataType: "json",
             success: function (data) {
-
-                for (var key in data) {
-                    if (! data.hasOwnProperty(key)) {
-                        continue;
-                    }
-                    var statuses = data[key].split(" ");
-                    var elem = $(".filetree").find('li[data-path="' + key + '"]');
-                    _.each(statuses, function(status) {
-                        elem.addClass("git-status-" + status);
-                    });
-
-
-                }
-
+                gitStatusCache = data;
+                refreshGitStatus();
             }
         });
 
     }
-    setTimeout(updateGitStatus, 5000);
+    setTimeout(updateGitStatus, 0);
     setInterval(updateGitStatus, 60000);
 
 
@@ -276,6 +285,9 @@ module CCIDE.Client {
                         event.stopPropagation();
                     }
 
+                }).on("before_open.jstree", function(event, object) {
+                    var elem = $("#" + object.node.id);
+                    refreshGitStatus(elem);
                 });
         }
     });
