@@ -52,11 +52,7 @@ branch on a relatively stable level. If you want to try it out yourself you shou
 
 ### How may I contribute?
 
-We'd appreciate to see some contributions! However there's still the "we don't know yet what license to choose" thing (see chapter "So what's the license?"). So if you do want to contribute you have to send us a signed statement containing the fact that you have written the code all by yourself and that you are willing to give all the rights to the code to us.
-
-We know that sucks and we're trying to decide very soon what license we want to keep up. As soon as this is decided we can provide a form for you for the signment and also preserve some of your rights (hopefully ;)).
-
-When the license stuff is clear and we got your agreement... Just add a pull request :)! We'll happily merge it, if code is all well done and up to our standards.
+Just fork the project, implement an awesome feature and make a pull request! Its almost as simple as that. In order to make things easier please try using the same coding style we do and comment everything you did.
 
 ### What if I got some problems?
 
