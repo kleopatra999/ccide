@@ -19,17 +19,37 @@ module CCIDE.Server.Services.WebsocketService {
 
         private _name;
 
+        private _session;
+
         public constructor(socket, websocketService) {
             _.bindAll(this);
 
             this._socket = socket;
+            this._session = socket.handshake.session;
             this._websocketService = websocketService;
-            this._name = this._generateName();
+
+            if (this._session.name !== undefined) {
+                this._name = this._session.name;
+                this._session.loginCount++;
+                this._session.save();
+            } else {
+                this._session.name = this._name = this._generateName();
+                this._session.loginCount = 1;
+                this._session.save();
+            }
 
             socket.on('message', this._onMessage);
             socket.on('chat', this._onChat);
             socket.on('disconnect', this._onDisconnect);
 
+        }
+
+        public isFirstSessionLogin() {
+            return this._session.loginCount === 1;
+        }
+
+        public getSession() {
+            return this._session;
         }
 
         public getName() {

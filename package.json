@@ -39,7 +39,8 @@
         "socket.io": "*",
         "compression": "*",
         "shelljs": "*",
-        "nodegit": "*"
+        "nodegit": "*",
+        "cookie-parser": "*"
     },
     "devDependencies": {
         "nodemon": "*",

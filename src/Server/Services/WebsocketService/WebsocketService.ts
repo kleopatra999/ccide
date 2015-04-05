@@ -8,8 +8,10 @@ module CCIDE.Server.Services.WebsocketService {
     var fs = require('fs');
     var Q = require("q");
     var path = require("path");
+    var session : any = require('express-session');
 
-    var bodyParser:any = require("body-parser");
+    var cookieParser : any = require('cookie-parser');
+    var uuid : any = require('node-uuid');
 
     export class WebsocketService {
 
@@ -17,25 +19,60 @@ module CCIDE.Server.Services.WebsocketService {
 
         private _connections = [];
 
-        public constructor(server) {
+        public constructor(server, myStore) {
             _.bindAll(this);
 
             this._server = server;
-            var socket = io.listen(this._server);
-            socket.on('connection', this._onConnection);
+            var socket = io(this._server);
 
+
+            var cookieSession = session({
+                genid: function(req) {
+                    return uuid.v4() // use UUIDs for session IDs
+                },
+                name: "ccide",
+                secret: 'cute kitten',
+                store: myStore,
+                saveUninitialized: true,
+                resave: true
+            });
+
+            socket.use(function(socket, next) {
+                var handshake = socket.handshake;
+
+                if (handshake.headers.cookie) {
+                    cookieParser("cute kitten", {})(handshake, {}, function (err) {
+                        handshake.sessionID = handshake.signedCookies.ccide;
+                        handshake.sessionStore = myStore;
+                        handshake.sessionStore.get(handshake.sessionID, function (err, data) {
+                            if (err) return next(err);
+                            if (!data) return next(new Error('Invalid Session'));
+                            handshake.session = new session.Session(handshake, data);
+                            console.log("socket session:", handshake.session.views, handshake.sessionID);
+                            next();
+                        });
+                    });
+                }
+                else {
+                    next(new Error('Missing Cookies'));
+                }
+            });
+            socket.on('connection', this._onConnection);
         }
 
         public chat(client, message) {
             this.sendMessage("chat", {from: client.getName(), message: message});
         }
 
-
         public _onConnection(socketConnection) {
             var client = new WebsocketConnection(socketConnection, this);
             this._connections.push(client);
+            if (client.isFirstSessionLogin()) {
+                this.chat(client, "/e entered the room.");
+            } else {
+                this.chat(client, "/e reconnected.");
+            }
 
-            this.chat(client, "/e entered the room.");
         }
 
         public sendMessage(identifier, message) {

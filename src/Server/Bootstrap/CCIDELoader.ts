@@ -8,8 +8,12 @@ module CCIDE.Server.Bootstrap {
     var path = require('path');
     var serveStatic : any = require('serve-static');
     var io : any = require('socket.io');
-
+    var session : any = require('express-session');
     var compression = require("compression");
+    var cookieParser : any = require('cookie-parser');
+    var uuid : any = require('node-uuid');
+    var sessionstore = require('sessionstore');
+    var myStore = sessionstore.createSessionStore();
 
     export class CCIDELoader {
 
@@ -50,13 +54,32 @@ module CCIDE.Server.Bootstrap {
 
 
             app.use(serveStatic(path.resolve(__dirname + "/public")));
+            app.use(cookieParser("cute kitten", {}));
+
+            app.use(session({
+                genid: function(req) {
+                    return uuid.v4();  // use UUIDs for session IDs
+                },
+                name: "ccide",
+                secret: 'cute kitten',
+                store: myStore,
+                saveUninitialized: true,
+                resave: true
+            }));
+
+            app.use(function (req, res, next) {
+                var n = req.session.views || 0;
+                req.session.views = ++n;
+                console.log(req.session.views);
+                next();
+            });
 
             this._app = app;
             this._registerServices();
 
             this._server = app.listen(this.getCLISettings().getPort());
 
-            this._socketService = new CCIDE.Server.Services.WebsocketService.WebsocketService(this._server);
+            this._socketService = new CCIDE.Server.Services.WebsocketService.WebsocketService(this._server, myStore);
 
             console.log("listening on " + this.getCLISettings().getPort());
 

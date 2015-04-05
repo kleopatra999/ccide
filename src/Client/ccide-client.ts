@@ -223,8 +223,6 @@ module CCIDE.Client {
             return;
         }
 
-        console.log("refreshing", target);
-
         for (var key in gitStatusCache) {
             if (! gitStatusCache.hasOwnProperty(key)) {
                 continue;
