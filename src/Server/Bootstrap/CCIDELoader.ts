@@ -64,13 +64,23 @@ module CCIDE.Server.Bootstrap {
                 secret: 'cute kitten',
                 store: myStore,
                 saveUninitialized: true,
+                cookie: {maxAge: 24 * 60 * 60 * 1000 /*one day*/},
                 resave: true
             }));
 
             app.use(function (req, res, next) {
                 var n = req.session.views || 0;
+                if (req.session.lastUpdate === undefined) {
+                    req.session.lastUpdate = 0;
+                }
+                if (new Date().getTime() - req.session.lastUpdate > 5 * 60 * 1000) {
+                    console.log("refreshing session expire");
+                    req.session.lastUpdate = new Date().getTime();
+                    req.session.cookie.maxAge = 24 * 60 * 60 * 1000;
+                    req.session.touch();
+                }
                 req.session.views = ++n;
-                console.log(req.session.views);
+                req.session.save();
                 next();
             });
 
